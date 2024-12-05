@@ -1,0 +1,77 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=VT323&display=swap');
+
+/* CSS Variables */
+:root {
+    --heading-font: 'VT323', sans-serif;
+    --body-font: 'Raleway', serif;
+    --highlight-color: #E8E8E8;
+    /* Platinum */
+    --primary-color: #0A100D;
+    /* Night */
+    --font-color: #70CC00;
+    /* Lime Green */
+}
+
+/* Global styles */
+body {
+    background-color: var(--primary-color);
+    color: var(--font-color);
+    font-family: var(--heading-font);
+}
+
+h1 {
+    font-family: var(--heading-font);
+    color: var(--font-color);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--heading-font);
+    color: var(--font-color);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+
+
+/* Header section */
+
+#navbar {
+    background-color: var(--primary-color);
+    font-family: var(--heading-font);
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#hero-section img {
+    height: 550px;
+    width: 100%;
+}
+
+/* Main section */
+
+.card {
+    background-color: var(--primary-color);
+    color: var(--font-color);
+    height: 100%;
+}
+
+.game-btn {
+    background-color: var(--primary-color);
+    border-color: var(--highlight-color);
+    border-radius: 1px;
+}
+
+.game-btn:hover {
+    background-color: var(--highlight-color);
+    color: var(--primary-color);
+    border-color: var(--highlight-color);
+}

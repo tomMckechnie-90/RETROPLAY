@@ -68,10 +68,28 @@ h6 {
     background-color: var(--primary-color);
     border-color: var(--highlight-color);
     border-radius: 1px;
+    color: var(--font-color);
+}
+
+@keyframes flash {
+    0% {
+        background-color: var(--highlight-color);
+        box-shadow: 0 0 10px var(--highlight-color) 0 0 40px var(--highlight-color);
+    }
+    50% {
+        background-color: var(--primary-color);
+        box-shadow: 0 0 10px var(--primary-color) 0 0 40px var(--primary-color);
+        color: var(--font-color);
+    }
+    0% {
+        background-color: var(--highlight-color);
+        box-shadow: 0 0 10px var(--highlight-color) 0 0 40px var(--highlight-color);
+    }
 }
 
 .game-btn:hover {
     background-color: var(--highlight-color);
     color: var(--primary-color);
     border-color: var(--highlight-color);
+    animation: flash 3s infinite;
 }

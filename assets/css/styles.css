@@ -72,6 +72,7 @@ h6 {
     height: 100%;
     border: none;
 }
+
 /* Adjust margins on cards on the left and right */
 #frogger {
     margin-left: 30px;
@@ -93,11 +94,13 @@ h6 {
         background-color: var(--highlight-color);
         box-shadow: 0 0 10px var(--highlight-color) 0 0 40px var(--highlight-color);
     }
+
     50% {
         background-color: var(--primary-color);
         box-shadow: 0 0 10px var(--primary-color) 0 0 40px var(--primary-color);
         color: var(--font-color);
     }
+
     0% {
         background-color: var(--highlight-color);
         box-shadow: 0 0 10px var(--highlight-color) 0 0 40px var(--highlight-color);
@@ -109,4 +112,104 @@ h6 {
     color: var(--primary-color);
     border-color: var(--highlight-color);
     animation: flash 3s infinite;
+}
+
+/* Media Queries for responsiveness */
+/* @media (max-width: 1200px) {
+    #hero-section img {
+        height: 450px;
+        margin-top: 70px;
+    }
+
+    #frogger {
+        margin: auto;
+        }
+    
+        #breakout {
+            margin: auto;
+        }
+    
+        #space_invaders {
+            margin: auto;
+        }
+} */
+
+@media (max-width: 992px) {
+    /* #hero-section img {
+        height: 350px;
+        margin-top: 70px;
+    } */
+
+    #intro {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    #hero-section img {
+        height: 250px;
+        margin-top: 70px;
+    }
+
+    #intro {
+        margin: 20px;
+    }
+
+    #frogger {
+        margin: auto;
+    }
+
+    #breakout {
+        margin: auto;
+    }
+
+    #space_invaders {
+        margin: auto;
+        margin-top: 15px;
+    }
+
+
+    .card {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+
+@media (max-width: 320px) {
+    #hero-section img {
+        height: 150px;
+        margin-top: 70px;
+    }
+
+    #intro {
+        margin: 20px;
+    }
+
+    .card {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    #frogger {
+        margin: auto;
+    }
+
+    #breakout {
+        margin: auto;
+    }
+
+    #space_invaders {
+        margin: auto;
+    }
+
+    .game-btn {
+        font-size: 12px;
+        padding: 5px;
+    }
 }

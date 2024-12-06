@@ -54,7 +54,14 @@ h6 {
 #hero-section img {
     height: 550px;
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 50px;
+}
+
+#intro {
+    text-align: center;
+    margin-bottom: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 /* Main section */
@@ -63,6 +70,15 @@ h6 {
     background-color: var(--primary-color);
     color: var(--font-color);
     height: 100%;
+    border: none;
+}
+/* Adjust margins on cards on the left and right */
+#frogger {
+    margin-left: 30px;
+}
+
+#space_invaders {
+    margin-right: 30px;
 }
 
 .game-btn {

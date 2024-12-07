@@ -61,7 +61,7 @@ h6 {
     border: 2px solid #70CC00;
     display: grid;
     /* Use grid layout for dividing rows */
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-rows: repeat(7, 1fr);
     /* Divide into 5 equal rows */
     position: relative;
     /* Positioning for placing elements inside */
@@ -126,6 +126,17 @@ h6 {
     /* Cars move continuously */
 }
 
+/* Add colour variations for different cars */
+.car:nth-child(1) {
+    background-color: #FF0000;
+}
+.car:nth-child(2) {
+    background-color: #FFFF00;
+}
+.car:nth-child(3) {
+    background-color: #00FF00;
+}
+
 /* Keyframes for car movement */
 @keyframes moveCar {
     0% {
@@ -163,16 +174,16 @@ h6 {
 }
 
 /* Below code is for dubugging remove when ready */
-/* #frogger-game .row {
+#frogger-game .row {
     border: dashed red;
     
-} */
+}
 
-/* .row {
+.row {
     border: 1px dashed red;
 }
 
 .frog,
 .car {
     border: 1px solid yellow;
-} */
+}

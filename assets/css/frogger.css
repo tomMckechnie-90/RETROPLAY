@@ -46,7 +46,144 @@ h6 {
     background-color: var(--primary-color);
     font-family: var(--heading-font);
     padding: 10px;
-    position: fixed;
     width: 100%;
     z-index: 1000;
+}
+
+/* General Game Area Styling */
+
+#frogger-game {
+    width: 600px;
+    height: 400px;
+    margin: 0 auto;
+    /* Center the game area horizontally */
+    background-color: var(--primary-color);
+    border: 2px solid #70CC00;
+    display: grid;
+    /* Use grid layout for dividing rows */
+    grid-template-rows: repeat(7, 1fr);
+    /* Divide into 5 equal rows */
+    position: relative;
+    /* Positioning for placing elements inside */
+}
+
+/* Individual Rows */
+.start-zone {
+    background-color: var(--primary-color);
+    position: relative; /* Ensure the frog positions itself inside this row */
+}
+
+#frogger-game .row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1px solid var(--highlight-color);
+    /* Light gray separators for visual clarity */
+}
+
+#frogger-game .home-base {
+    background-color: #70CC00;
+}
+
+#frogger-game .road {
+    background-color: #2E2E2E;
+}
+
+#frogger-game .river {
+    background-color: #1C4966;
+}
+
+/* Frog styling */
+.frog {
+    width: 40px;
+    height: 40px;
+    background-color: #70CC00;
+    position: absolute;
+    /* Allows free movement inside the game area */
+    bottom: 10px;
+    /* Start near the bottom of the game area */
+    left: 280px;
+    /* Center the frog horizontally */
+    border-radius: 5px;
+    /* Slightly rounded corners for visual appeal */
+}
+
+/* Car styling */
+.row.road {
+    background-color: #2E2E2E;
+    position: relative;
+}
+
+.car {
+    width: 60px;
+    height: 30px;
+    background-color: #E8E8E8;
+    position: absolute;
+    /* Cars will move independently */
+    top: 10px;
+    /* Adjust position within the row */
+    animation: moveCar 5s linear infinite;
+    /* Cars move continuously */
+}
+
+/* Add colour variations for different cars */
+.car:nth-child(1) {
+    background-color: #FF0000;
+}
+.car:nth-child(2) {
+    background-color: #FFFF00;
+}
+.car:nth-child(3) {
+    background-color: #00FF00;
+}
+
+/* Keyframes for car movement */
+@keyframes moveCar {
+    0% {
+        left: 600px;
+        /* Start off-screen on the right */
+    }
+
+    100% {
+        left: -60px;
+        /* Move off-screen to the left */
+    }
+}
+
+/* Log Styling */
+.log {
+    width: 100px;
+    height: 30px;
+    background-color: #70CC00;
+    position: absolute;
+    animation: moveLog 6s linear infinite;
+    /* Logs move continuously */
+}
+
+/* Keyframes for Log Movement */
+@keyframes moveLog {
+    0% {
+        left: -100px;
+        /* Start off-screen on the left */
+    }
+
+    100% {
+        left: 600px;
+        /* Move off-screen to the right */
+    }
+}
+
+/* Below code is for dubugging remove when ready */
+#frogger-game .row {
+    border: dashed red;
+    
+}
+
+.row {
+    border: 1px dashed red;
+}
+
+.frog,
+.car {
+    border: 1px solid yellow;
 }

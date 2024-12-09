@@ -45,9 +45,18 @@ function checkCollisions() {
             frogRect.bottom > carRect.top && // Frog's bottom edge > Car's top edge
             frogRect.top < carRect.bottom // Frog's top edge < Car's bottom edge
         ) {
-            console.log('Collision detected with a car!')
+            // Collision detected! Reset the frog's position
+            resetFrogsPosition();
         }
     });
+}
+
+// Function to reset the frog's position
+function resetFrogsPosition() {
+    // Set the frog's position back to the start zone
+    frogX = 280; // Horizontal starting position
+    frogY = 10; // Vertical starting position
+    updateFrogPosition(); // Update the frog's position visually
 }
 
 setInterval(checkCollisions, 100);

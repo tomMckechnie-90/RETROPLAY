@@ -108,6 +108,24 @@ h6 {
     /* Slightly rounded corners for visual appeal */
 }
 
+/* Flash Effect for the frog */
+.frog.flash {
+    animation: flash 0.9s ease-in-out;
+}
+
+/* Define the flash animation */
+@keyframes flash {
+    0% {
+        background-color: #FF0000; /* Bright red on collision */
+    }
+    50% {
+        background-color: #70CC00; /* Back to the normal green */
+    }
+    100% {
+        background-color: #70CC00; /* Stay green */
+    }
+}
+
 /* Car styling */
 .row.road {
     background-color: #2E2E2E;

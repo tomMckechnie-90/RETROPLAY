@@ -53,6 +53,15 @@ function checkCollisions() {
 
 // Function to reset the frog's position
 function resetFrogsPosition() {
+    // Trigger the flash effect
+    frog.classList.add('flash');
+
+    // Remove the flash effect after the animation ends
+    setTimeout(() => {
+        frog.classList.remove('flash');
+    }, 900); // Matches the duration of the CSS animation
+
+
     // Set the frog's position back to the start zone
     frogX = 280; // Horizontal starting position
     frogY = 10; // Vertical starting position

@@ -94,5 +94,32 @@ document.addEventListener('keydown', (e) => {
 // Initialize the frog's position when the game loads
 updateFrogPosition();
 
+// Select all log elements
+const logs = document.querySelectorAll('.log');
+
+// Function to move the logs dynamically
+function moveLogs() {
+    logs.forEach((log) => {
+        let logPosition = parseInt(window.getComputedStyle(log).left); // Get current position
+        const speed = Math.random() * 3 + 1 // Random speed for each log
+
+        // Move the log
+        logPosition += speed;
+
+        // Reset the log position if it moved off-screen
+        if (logPosition > 600) {
+            logPosition = -100 // Restart off-screen to the left
+        }
+
+        // Apply the new position
+        log.style.left = `${logPosition}px`;
+    });
+
+            // Repeat the function for smooth animation
+            requestAnimationFrame(moveLogs);
+}
+
+// Initialize log movement 
+moveLogs();
 
 

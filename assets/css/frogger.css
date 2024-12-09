@@ -173,7 +173,7 @@ h6 {
     width: 100px;
     height: 30px;
     background-color: #70CC00;
-    position: absolute;
+    position: absolute; /* Allows independent movement */
     animation: moveLog 6s linear infinite;
     /* Logs move continuously */
 }

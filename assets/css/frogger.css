@@ -67,6 +67,20 @@ h6 {
     /* Positioning for placing elements inside */
 }
 
+/* Score Board styling */
+
+#score-board {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+#score, #lives {
+    font-family: var(--heading-font);
+    color: var(--font-color);
+    font-size: 1.2rem;
+}
+
 /* Individual Rows */
 .start-zone {
     background-color: var(--primary-color);

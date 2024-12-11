@@ -1,11 +1,18 @@
 // Distance the frog moves per key press
 const step = 40;
 
+const scoreElement = document.getElementById('score');
+const livesElement = document.getElementById('lives');
+
 // Initial position of the frog
 let frogX = 280; // Horizontal position
 let frogY = 10; // Vertical position
 let isOnLog = false; // Tracks if the frog is on a log
 let isResetting = false; // Tracks if the frog is being reset
+let score = 0;
+let lives = 3;
+
+
 
 // Reference to the frog element in the HTML
 const frog = document.querySelector('.frog');
@@ -80,9 +87,35 @@ function checkCollisions() {
             frogRect.top < carRect.bottom
         ) {
             console.log(`Collision detected with Car ${index + 1}`)
+            updateLives();
             resetFrogPosition(); // Reset the frog's position upon collision
         }
     });
+}
+
+// Update Score
+function updateScore() {
+    score += 10; // Increment score
+    scoreElement.textContent = `Score: ${score}`; // Update score display
+}
+
+// Update Lives
+function updateLives() {
+    lives -= 1; // Decrement lives
+    livesElement.textContent = `Lives: ${lives}`; // Update lives display
+    if (lives === 0) {
+        alert('Game Over!')
+        resetGame();
+    }
+}
+
+// Reset the game
+function resetGame() {
+    score = 0;
+    lives = 3;
+    updateScore();
+    updateLives();
+    resetFrogPosition();
 }
 
 // reset the frog's position
@@ -95,7 +128,7 @@ function resetFrogPosition() {
 
     setTimeout(() => {
         frog.classList.remove('flash'); // Remove the flash effect after animation
-        frogX = 200; // Reset horizontal position
+        frogX = 280; // Reset horizontal position
         frogY = 10; // Reset vertical position
         isResetting = false; // Clear the resetting flag
         updateFrogPosition(); // Update the frog's position on screen
@@ -139,7 +172,9 @@ function moveFrogWithLog(log) {
     updateFrogPosition(); // Update visually
 }
 
-// Creating the game loop
+
+
+// the game loop
 function gameLoop() {
     moveLogs();
     checkLogCollisions(); // Check if the frog is on a log

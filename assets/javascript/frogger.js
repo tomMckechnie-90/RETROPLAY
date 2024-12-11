@@ -103,13 +103,47 @@ function resetFrogPosition() {
     }, 900); // Duration matches the CSS animation time
 }
 
+// check if the frog is on a log
+function checkLogCollisions() {
+    const frogRect = frog.getBoundingClientRect(); // Get the frog's bounding box
+    isOnLog = false; // Reset log state
 
+    logs.forEach((log, index) => {
+        const logRect = log.getBoundingClientRect(); // Get the log's bounding box
 
+        // check if the bounding boxes overlap
+        if (
+            frogRect.right > logRect.left && // Frog's right edge > Log's left edge
+            frogRect.left < logRect.right && // Frog's left edge < Log's right edge
+            frogRect.bottom > logRect.top && // Frog's bottom edge > Log's top edge
+            frogRect.top < logRect.bottom // Frog's top edge < Log's bottom edge
+        ) {
+            console.log(`Frog is on Log ${index + 1}`);
+            isOnLog = true; // Frog is on a log
+            moveFrogWithLog(log); // Move the frog with the log
+        }
+    });
+
+    // Check if the frog is in the river and not on a log
+    const isInFirstRiver = frogY >= 280 && frogY <= 320;
+    const isInSecondRiver = frogY >= 120 && frogY <= 160;
+    if (!isOnLog && (isInFirstRiver || isInSecondRiver)) {
+        resetFrogPosition();
+    }
+}
+
+// move the frog with the log
+function moveFrogWithLog(log) {
+    const logSpeed = 2; // Match log speed
+    frogX += logSpeed; // Move frog horizontally with log
+    updateFrogPosition(); // Update visually
+}
 
 // Creating the game loop
 function gameLoop() {
     moveLogs();
-    checkCollisions();
+    checkLogCollisions(); // Check if the frog is on a log
+    checkCollisions(); // Check for collisions with cars
     requestAnimationFrame(gameLoop);
 }
 

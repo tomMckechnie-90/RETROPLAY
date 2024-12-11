@@ -1,9 +1,12 @@
 const step = 40; // Distance the frog moves per key press
 
+
 let frogX = 280; // Horizontal position (left)
 let frogY = 10; // Vertical position (bottom)
+let isOnLog = false; // Tracks if the frog is on a log
 
 const frog = document.querySelector('.frog');
+const logs = document.querySelectorAll('.log');
 // Updates the frogs position on the screen by modifying its CSS properties
 function updateFrogPosition() {
     frog.style.left = `${frogX}px`;
@@ -39,7 +42,7 @@ function checkCollisions() {
         const carRect = car.getBoundingClientRect();
 
         // Check if the bounding boxes overlap
-        if(
+        if (
             frogRect.right > carRect.left && // Frog's right edge > Car's left edge
             frogRect.left < carRect.right && // Frog's left edge < Car's right edge
             frogRect.bottom > carRect.top && // Frog's bottom edge > Car's top edge
@@ -68,7 +71,7 @@ function resetFrogsPosition() {
     updateFrogPosition(); // Update the frog's position visually
 }
 
-setInterval(checkCollisions, 100);
+
 
 
 document.addEventListener('keydown', (e) => {
@@ -94,14 +97,15 @@ document.addEventListener('keydown', (e) => {
 // Initialize the frog's position when the game loads
 updateFrogPosition();
 
-// Select all log elements
-const logs = document.querySelectorAll('.log');
+
 
 // Function to move the logs dynamically
 function moveLogs() {
-    logs.forEach((log) => {
-        let logPosition = parseInt(window.getComputedStyle(log).left); // Get current position
-        const speed = Math.random() * 3 + 1 // Random speed for each log
+    logs.forEach((log, index) => {
+        let logPosition = parseInt(window.getComputedStyle(log).left) || 0; // Get current position
+        // console.log(`Log ${index + 1} Position: ${logPosition}`); Debugging
+
+        const speed = 2; // Set a consistent speed for logs
 
         // Move the log
         logPosition += speed;
@@ -111,15 +115,59 @@ function moveLogs() {
             logPosition = -100 // Restart off-screen to the left
         }
 
-        // Apply the new position
         log.style.left = `${logPosition}px`;
     });
 
-            // Repeat the function for smooth animation
-            requestAnimationFrame(moveLogs);
 }
 
-// Initialize log movement 
-moveLogs();
 
+function checkLogCollision() {
+    const frogRect = frog.getBoundingClientRect();
+    isOnLog = false;
+    // console.log('Logs:', logs);
+    logs.forEach((log, index) => {
+        // console.log(`Log ${index}`, log);
+        const logRect = log.getBoundingClientRect();
+
+        // Check if the frog overlaps with the log
+        if (
+            frogRect.right > logRect.left &&
+            frogRect.left < logRect.right &&
+            frogRect.bottom > logRect.top &&
+            frogRect.top < logRect.bottom
+        ) {
+            // console.log(`Frog is on Log ${index}`); 
+            isOnLog = true; // Frog is on a log
+            moveFrogWithLog(log); // Move the frog with the log
+        }
+    });
+    // Check if the frog is in the river and not on a log
+    const isInRiver = frogY >=80 && frogY <= 240; // Adjust based on river rows
+    if (!isOnLog && isInRiver) {
+        resetFrogsPosition() // Frog fell into river
+    }
+}
+
+
+
+// Move the frog with the log
+function moveFrogWithLog(log) {
+    const logSpeed = 2; // Match log speed
+    frogX += logSpeed; // Move frog horizontally with log
+    updateFrogPosition(); // Update visually
+}
+
+
+
+function gameLoop() {
+    moveLogs();           // Move the logs dynamically
+    checkLogCollision();  // Check if the frog is on a log
+    checkCollisions();    // Check if the frog collides with cars
+
+    // Request the next animation frame
+    requestAnimationFrame(gameLoop);
+}
+
+// Start the game loop
+gameLoop();
 

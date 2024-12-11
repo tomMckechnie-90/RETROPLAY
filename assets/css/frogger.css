@@ -174,22 +174,9 @@ h6 {
     height: 30px;
     background-color: #70CC00;
     position: absolute; /* Allows independent movement */
-    animation: moveLog 6s linear infinite;
-    /* Logs move continuously */
+    left: 0;
 }
 
-/* Keyframes for Log Movement */
-@keyframes moveLog {
-    0% {
-        left: -100px;
-        /* Start off-screen on the left */
-    }
-
-    100% {
-        left: 600px;
-        /* Move off-screen to the right */
-    }
-}
 
 /* Below code is for dubugging remove when ready */
 #frogger-game .row {

@@ -12,8 +12,6 @@ let isResetting = false; // Tracks if the frog is being reset
 let score = 0;
 let lives = 3;
 
-
-
 // Reference to the frog element in the HTML
 const frog = document.querySelector('.frog');
 const logs = document.querySelectorAll('.log');
@@ -69,7 +67,7 @@ document.addEventListener('keydown', (e) => {
     updateFrogPosition(); // Update the frog's position on the screen
 });
 
-// Check for colliions with cars
+// Check for collisions with cars
 function checkCollisions() {
     if (isResetting) return; // Skip collision check if the frog is resetting
 
@@ -77,7 +75,7 @@ function checkCollisions() {
     // console.log('Checking collisions...');
 
     cars.forEach((car, index) => {
-        const carRect = car.getBoundingClientRect() // Get the car's bounding box
+        const carRect = car.getBoundingClientRect(); // Get the car's bounding box
 
         // Check if the bounding boxes overlap
         if (
@@ -86,7 +84,7 @@ function checkCollisions() {
             frogRect.bottom > carRect.top &&
             frogRect.top < carRect.bottom
         ) {
-            console.log(`Collision detected with Car ${index + 1}`)
+            console.log(`Collision detected with Car ${index + 1}`);
             updateLives();
             resetFrogPosition(); // Reset the frog's position upon collision
         }
@@ -104,9 +102,24 @@ function updateLives() {
     lives -= 1; // Decrement lives
     livesElement.textContent = `Lives: ${lives}`; // Update lives display
     if (lives === 0) {
-        alert('Game Over!')
+        alert('Game Over!');
+        window.location.reload();
         resetGame();
     }
+}
+
+// Function to reset logs positions
+function resetLogs() {
+    logs.forEach((log) => {
+        log.style.left = '0px';
+    });
+}
+
+// Function to reset cars positions
+function resetCars() {
+    cars.forEach((car) => {
+        car.style.left = '600px'; // Position them off-screen to the right
+    });
 }
 
 // Reset the game
@@ -115,10 +128,12 @@ function resetGame() {
     lives = 3;
     updateScore();
     updateLives();
+    resetLogs();
+    resetCars();
     resetFrogPosition();
 }
 
-// reset the frog's position
+// Reset the frog's position
 function resetFrogPosition() {
     isResetting = true; // Set the flag to indicate resetting
     console.log('Resetting frog position...');
@@ -136,7 +151,7 @@ function resetFrogPosition() {
     }, 900); // Duration matches the CSS animation time
 }
 
-// check if the frog is on a log
+// Check if the frog is on a log
 function checkLogCollisions() {
     const frogRect = frog.getBoundingClientRect(); // Get the frog's bounding box
     isOnLog = false; // Reset log state
@@ -144,7 +159,7 @@ function checkLogCollisions() {
     logs.forEach((log, index) => {
         const logRect = log.getBoundingClientRect(); // Get the log's bounding box
 
-        // check if the bounding boxes overlap
+        // Check if the bounding boxes overlap
         if (
             frogRect.right > logRect.left && // Frog's right edge > Log's left edge
             frogRect.left < logRect.right && // Frog's left edge < Log's right edge
@@ -165,16 +180,14 @@ function checkLogCollisions() {
     }
 }
 
-// move the frog with the log
+// Move the frog with the log
 function moveFrogWithLog(log) {
     const logSpeed = 2; // Match log speed
     frogX += logSpeed; // Move frog horizontally with log
     updateFrogPosition(); // Update visually
 }
 
-
-
-// the game loop
+// The game loop
 function gameLoop() {
     moveLogs();
     checkLogCollisions(); // Check if the frog is on a log

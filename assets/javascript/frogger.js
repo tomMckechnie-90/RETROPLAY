@@ -16,6 +16,7 @@ let score = 0;
 const frog = document.querySelector('.frog');
 const logs = document.querySelectorAll('.log');
 const cars = document.querySelectorAll('.car');
+const homeBaseZones = document.querySelectorAll('.home-base-zone')
 
 // Function to Update Frog's Position
 function updateFrogPosition() {
@@ -93,11 +94,9 @@ function checkCollisions() {
 
 // Update Score
 function updateScore() {
-    score += 10; // Increment score
+    score += 50; // Increment score
     scoreElement.textContent = `Score: ${score}`; // Update score display
 }
-
-
 
 
 // Reset the game
@@ -121,7 +120,7 @@ function resetFrogPosition() {
         isResetting = false; // Clear the resetting flag
         updateFrogPosition(); // Update the frog's position on screen
         console.log('Frog position reset completed.');
-    }, 100); // Duration matches the CSS animation time
+    }, 900); // Duration matches the CSS animation time
 }
 
 // Check if the frog is on a log
@@ -165,16 +164,43 @@ function checkHomeBase() {
     const homeBase = document.querySelector('.home-base')
     const homeBaseRect = homeBase.getBoundingClientRect();
 
+    console.log(`Frog Rect: ${JSON.stringify(frogRect)}`);
+    console.log(`Home Base Rect: ${JSON.stringify(homeBaseRect)}`);
+
     if (
         frogRect.right > homeBaseRect.left &&
         frogRect.left < homeBaseRect.right &&
         frogRect.bottom > homeBaseRect.top &&
         frogRect.top < homeBaseRect.bottom
     ) {
-        console.log('Frog reached home base!')
-        updateScore();
-        resetFrogPosition();
+        console.log('Frog reached home base!'); 
+        checkHomeBaseZones();
+    } else {
+        // resetFrogPosition()
     }
+}
+
+// Function to Check if the Frog has reached any Home Base Zone
+function checkHomeBaseZones() {
+    const frogRect = frog.getBoundingClientRect();
+
+    homeBaseZones.forEach((zone, index) => {
+        const zoneRect = zone.getBoundingClientRect();
+
+        console.log(`Checking zone ${index + 1} - Frog Rect: ${JSON.stringify(frogRect)}, Zone Rect: ${JSON.stringify(zoneRect)}`);
+
+        if (
+            frogRect.right > zoneRect.left &&
+            frogRect.left < zoneRect.right &&
+            frogRect.bottom > zoneRect.top &&
+            frogRect.top < zoneRect.bottom
+        ) {
+            console.log(`Frog reached home base zone ${index + 1}!`);
+            updateScore();
+            zone.classList.add('occupied'); // Mark the zone as occupied
+            resetFrogPosition();
+        }
+    })
 }
 
 // The game loop

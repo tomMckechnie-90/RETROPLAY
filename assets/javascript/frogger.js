@@ -1,15 +1,15 @@
 // Distance the frog moves per key press
 const step = 40;
 
-// const scoreElement = document.getElementById('score');
-// const livesElement = document.getElementById('lives');
+const scoreElement = document.getElementById('score');
+
 
 // Initial position of the frog
 let frogX = 280; // Horizontal position
 let frogY = 10; // Vertical position
 let isOnLog = false; // Tracks if the frog is on a log
 let isResetting = false; // Tracks if the frog is being reset
-// let score = 0;
+let score = 0;
 // let lives = 3;
 
 // Reference to the frog element in the HTML
@@ -92,43 +92,17 @@ function checkCollisions() {
 }
 
 // Update Score
-// function updateScore() {
-//     score += 10; // Increment score
-//     scoreElement.textContent = `Score: ${score}`; // Update score display
-// }
+function updateScore() {
+    score += 10; // Increment score
+    scoreElement.textContent = `Score: ${score}`; // Update score display
+}
 
-// Update Lives
-// function updateLives() {
-//     lives -= 1; // Decrement lives
-//     livesElement.textContent = `Lives: ${lives}`; // Update lives display
-//     if (lives === 0) {
-//         alert('Game Over!');
-//         resetGame();
-//     }
-// }
 
-// Function to reset logs positions
-// function resetLogs() {
-//     logs.forEach((log) => {
-//         log.style.left = '0px';
-//     });
-// }
 
-// Function to reset cars positions
-// function resetCars() {
-//     cars.forEach((car) => {
-//         car.style.left = '600px'; // Position them off-screen to the right
-//     });
-// }
 
 // Reset the game
 function resetGame() {
-    // score = 0;
-    // lives = 3;
-    // updateScore();
-    // updateLives();
-    // resetLogs();
-    // resetCars();
+    updateScore();
     resetFrogPosition();
 }
 
@@ -147,7 +121,7 @@ function resetFrogPosition() {
         isResetting = false; // Clear the resetting flag
         updateFrogPosition(); // Update the frog's position on screen
         console.log('Frog position reset completed.');
-    }, 900); // Duration matches the CSS animation time
+    }, 100); // Duration matches the CSS animation time
 }
 
 // Check if the frog is on a log
@@ -198,6 +172,7 @@ function checkHomeBase() {
         frogRect.top < homeBaseRect.bottom
     ) {
         console.log('Frog reached home base!')
+        updateScore();
         resetFrogPosition();
     }
 }

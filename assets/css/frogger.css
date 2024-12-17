@@ -107,6 +107,41 @@ h6 {
     background-color: #1C4966;
 }
 
+/* Home base zone styling */
+.home-base-zone {
+    width: 40px;
+    height: 40px;
+    background-color: var(--highlight-color);
+    position: absolute; /* Allows placement within the home base */
+    box-sizing: border-box;
+}
+
+/* Zone 1 */
+.home-base-zone:nth-child(1) {
+    top: 10px;
+    left: 20px;
+}
+/* Zone 2 */
+.home-base-zone:nth-child(2) {
+    top: 10px;
+    left: 140px;
+}
+/* Zone 3 */
+.home-base-zone:nth-child(3) {
+    top: 10px;
+    left: 260px;
+}
+/* Zone 4 */
+.home-base-zone:nth-child(4) {
+    top: 10px;
+    left: 380px;
+}
+/* Zone 5 */
+.home-base-zone:nth-child(5) {
+    top: 10px;
+    left: 500px;
+}
+
 /* Frog styling */
 .frog {
     width: 40px;

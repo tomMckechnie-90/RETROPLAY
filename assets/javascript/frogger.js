@@ -10,6 +10,7 @@ let frogY = 10; // Vertical position
 let isOnLog = false; // Tracks if the frog is on a log
 let isResetting = false; // Tracks if the frog is being reset
 let score = 0;
+let isGameRunning = true;
 // let lives = 3;
 
 // Reference to the frog element in the HTML
@@ -20,7 +21,7 @@ const homeBaseZones = document.querySelectorAll('.home-base-zone')
 
 // Function to Update Frog's Position
 function updateFrogPosition() {
-    console.log(`Updating Frog Position: Left - ${frogX}px, Bottom - ${frogY}px`);
+    // console.log(`Updating Frog Position: Left - ${frogX}px, Bottom - ${frogY}px`);
     frog.style.left = `${frogX}px`;
     frog.style.bottom = `${frogY}px`;
 }
@@ -85,7 +86,7 @@ function checkCollisions() {
             frogRect.bottom > carRect.top &&
             frogRect.top < carRect.bottom
         ) {
-            console.log(`Collision detected with Car ${index + 1}`);
+            // console.log(`Collision detected with Car ${index + 1}`);
             // updateLives();
             resetFrogPosition(); // Reset the frog's position upon collision
         }
@@ -108,7 +109,7 @@ function resetGame() {
 // Reset the frog's position
 function resetFrogPosition() {
     isResetting = true; // Set the flag to indicate resetting
-    console.log('Resetting frog position...');
+    // console.log('Resetting frog position...');
 
     // Add the flash effect
     frog.classList.add('flash');
@@ -138,7 +139,7 @@ function checkLogCollisions() {
             frogRect.bottom > logRect.top && // Frog's bottom edge > Log's top edge
             frogRect.top < logRect.bottom // Frog's top edge < Log's bottom edge
         ) {
-            console.log(`Frog is on Log ${index + 1}`);
+            // console.log(`Frog is on Log ${index + 1}`);
             isOnLog = true; // Frog is on a log
             moveFrogWithLog(log); // Move the frog with the log
         }
@@ -164,8 +165,8 @@ function checkHomeBase() {
     const homeBase = document.querySelector('.home-base')
     const homeBaseRect = homeBase.getBoundingClientRect();
 
-    console.log(`Frog Rect: ${JSON.stringify(frogRect)}`);
-    console.log(`Home Base Rect: ${JSON.stringify(homeBaseRect)}`);
+    // console.log(`Frog Rect: ${JSON.stringify(frogRect)}`);
+    // console.log(`Home Base Rect: ${JSON.stringify(homeBaseRect)}`);
 
     if (
         frogRect.right > homeBaseRect.left &&
@@ -195,7 +196,7 @@ function checkHomeBaseZones() {
             frogRect.top < zoneRect.bottom &&
             !zone.isOccupied // Only act if the zone is not already occupied
         ) {
-            console.log(`Frog reached home base zone ${index + 1}!`);
+            // console.log(`Frog reached home base zone ${index + 1}!`);
             zone.isOccupied = true;
             zone.classList.add('occupied'); // Mark the zone as occupied
             updateScore();
@@ -211,14 +212,23 @@ homeBaseZones.forEach((zone) => {
 function checkWinCondition() {
     const allZonesOccupied = Array.from(homeBaseZones).every(zone => zone.isOccupied);
 
+    console.log('Checking win condition....');
+    console.log('All zones occupied:', allZonesOccupied);
+
     if (allZonesOccupied) {
-        console.log('Game won! All home base zones are occupied');
-        cancelAnimationFrame(gameLoop)
+        console.log('Game won! Triggering reload...')
+        window.alert('Game won! All home base zones are occupied');
+        isGameRunning = false; // stop the game loop
+        setTimeout(() => {
+            window.location.reload(); // Reload the page after a short delay
+        }, 1000); // Optional delay for user to see the win alert
     }
 }
 
 // The game loop
 function gameLoop() {
+    if (!isGameRunning) return; // Stop the loop if the game is not running
+
     moveLogs();
     checkLogCollisions(); // Check if the frog is on a log
     checkCollisions(); // Check for collisions with cars

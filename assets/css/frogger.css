@@ -237,7 +237,7 @@ h6 {
 
 
 /* Below code is for dubugging remove when ready */
-#frogger-game .row {
+/* #frogger-game .row {
     border: dashed red;
     
 }
@@ -249,4 +249,4 @@ h6 {
 .frog,
 .car {
     border: 1px solid yellow;
-}
+} */

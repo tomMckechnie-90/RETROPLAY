@@ -208,6 +208,15 @@ function checkHomeBaseZones() {
             // console.log(`Frog reached home base zone ${index + 1}!`);
             zone.isOccupied = true;
             zone.classList.add('occupied'); // Mark the zone as occupied
+            
+            // clone the frog element
+            const frogClone = frog.cloneNode(true);
+            frogClone.style.position = 'absolute';
+            frogClone.style.left = '0' // reset positioning relative to the home bas zone
+            frogClone.style.bottom = '0';
+            zone.appendChild(frogClone); // Append the cloned frog to the home base zone
+            
+
             resetFrogForNextRound();
         }
     });

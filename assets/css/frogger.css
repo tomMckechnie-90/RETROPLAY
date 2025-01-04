@@ -110,11 +110,16 @@ h6 {
 
 /* Home base zone styling */
 .home-base-zone {
+    position: relative; /* Allows child elements (like cloned frogs) to be positioned inside */
     width: 40px;
     height: 40px;
     background-color: var(--highlight-color);
     position: absolute; /* Allows placement within the home base */
     box-sizing: border-box;
+}
+
+.home-base-zone.occupied {
+    background-color: var(--font-color);
 }
 
 /* Zone 1 */
@@ -143,19 +148,15 @@ h6 {
     left: 500px;
 }
 
-.home-base-zone.occupied {
-    background-color: var(--font-color);
-    border-radius: 5px;
-    border: #0A100D;
-    background-size: contain;
-    background-repeat: no-repeat;
-}
+
 
 /* Frog styling */
 .frog {
     width: 40px;
     height: 40px;
-    background-color: #70CC00;
+    background-image: url('/assets/images/frog.PNG');
+    background-size: cover;
+    background-position: center;
     position: absolute;
     /* Allows free movement inside the game area */
     bottom: 10px;
@@ -164,6 +165,9 @@ h6 {
     /* Center the frog horizontally */
     border-radius: 5px;
     /* Slightly rounded corners for visual appeal */
+    background-color: transparent;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+
 }
 
 /* Flash Effect for the frog */

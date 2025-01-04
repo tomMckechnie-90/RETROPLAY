@@ -53,6 +53,7 @@ h6 {
 /* General Game Area Styling */
 
 #frogger-game {
+    overflow: hidden;
     width: 600px;
     height: 400px;
     margin: 0 auto;
@@ -144,6 +145,8 @@ h6 {
 
 .home-base-zone.occupied {
     background-color: var(--font-color);
+    border-radius: 5px;
+    border: #0A100D;
     background-size: contain;
     background-repeat: no-repeat;
 }

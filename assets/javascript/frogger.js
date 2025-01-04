@@ -9,15 +9,15 @@ let frogX = 280; // Horizontal position
 let frogY = 10; // Vertical position
 let isOnLog = false; // Tracks if the frog is on a log
 let isResetting = false; // Tracks if the frog is being reset
-let score = 0;
 let isGameRunning = true;
-// let lives = 3;
+let lives = 3;
 
 // Reference to the frog element in the HTML
 const frog = document.querySelector('.frog');
 const logs = document.querySelectorAll('.log');
 const cars = document.querySelectorAll('.car');
-const homeBaseZones = document.querySelectorAll('.home-base-zone')
+const homeBaseZones = document.querySelectorAll('.home-base-zone');
+const livesElement = document.getElementById('lives');
 
 // Function to Update Frog's Position
 function updateFrogPosition() {
@@ -76,7 +76,7 @@ function checkCollisions() {
     const frogRect = frog.getBoundingClientRect(); // Get the frog's bounding box
     // console.log('Checking collisions...');
 
-    cars.forEach((car, index) => {
+    cars.forEach((car) => {
         const carRect = car.getBoundingClientRect(); // Get the car's bounding box
 
         // Check if the bounding boxes overlap
@@ -92,24 +92,33 @@ function checkCollisions() {
         }
     });
 }
-
-// Update Score
-function updateScore() {
-    score += 50; // Increment score
-    scoreElement.textContent = `Score: ${score}`; // Update score display
+// Function to update the lives display
+function updateLivesDisplay() {
+    livesElement.textContent = `Lives: ${lives}`;
 }
 
+updateLivesDisplay();
 
 // Reset the game
 function resetGame() {
-    updateScore();
     resetFrogPosition();
 }
 
 // Reset the frog's position
 function resetFrogPosition() {
+    if (isResetting) return; // Skip if already resetting
     isResetting = true; // Set the flag to indicate resetting
     // console.log('Resetting frog position...');
+
+    // Deduct lifes by 1
+    lives -= 1;
+    updateLivesDisplay();
+
+    // Check if game is over
+    if (lives <= 0) {
+        gameOver();
+        return; // stop further resetting
+    }
 
     // Add the flash effect
     frog.classList.add('flash');
@@ -129,7 +138,7 @@ function checkLogCollisions() {
     const frogRect = frog.getBoundingClientRect(); // Get the frog's bounding box
     isOnLog = false; // Reset log state
 
-    logs.forEach((log, index) => {
+    logs.forEach((log) => {
         const logRect = log.getBoundingClientRect(); // Get the log's bounding box
 
         // Check if the bounding boxes overlap
@@ -199,16 +208,32 @@ function checkHomeBaseZones() {
             // console.log(`Frog reached home base zone ${index + 1}!`);
             zone.isOccupied = true;
             zone.classList.add('occupied'); // Mark the zone as occupied
-            updateScore();
-            resetFrogPosition();
+            resetFrogForNextRound();
         }
-    })
+    });
 }
 
 homeBaseZones.forEach((zone) => {
     zone.isOccupied = false; // Initally, no zones are occupied
 });
 
+// Reset frog for next round
+function resetFrogForNextRound() {
+    isResetting = true;
+    console.log('Resetting frog for next round...');
+
+    frog.classList.add('flash');
+    setTimeout(() => {
+        frog.classList.remove('flash');
+        frogX = 280;
+        frogY = 10;
+        isResetting = false;
+        updateFrogPosition(); 
+        console.log('frog reset for next round.')
+    }, 900);
+}
+
+// check if game is won
 function checkWinCondition() {
     const allZonesOccupied = Array.from(homeBaseZones).every(zone => zone.isOccupied);
 
@@ -223,6 +248,15 @@ function checkWinCondition() {
             window.location.reload(); // Reload the page after a short delay
         }, 1000); // Optional delay for user to see the win alert
     }
+}
+
+// check if game over
+function gameOver() {
+    isGameRunning = false; // Game loop stops
+    alert('Game Over! You have no lives left try again.');
+    setTimeout(() => {
+        window.location.reload(); // refresh the game
+    }, 1000);
 }
 
 // The game loop

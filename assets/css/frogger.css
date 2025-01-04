@@ -142,6 +142,12 @@ h6 {
     left: 500px;
 }
 
+.home-base-zone.occupied {
+    background-color: var(--font-color);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
 /* Frog styling */
 .frog {
     width: 40px;

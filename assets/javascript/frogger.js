@@ -187,20 +187,34 @@ function checkHomeBaseZones() {
     homeBaseZones.forEach((zone, index) => {
         const zoneRect = zone.getBoundingClientRect();
 
-        console.log(`Checking zone ${index + 1} - Frog Rect: ${JSON.stringify(frogRect)}, Zone Rect: ${JSON.stringify(zoneRect)}`);
 
         if (
             frogRect.right > zoneRect.left &&
             frogRect.left < zoneRect.right &&
             frogRect.bottom > zoneRect.top &&
-            frogRect.top < zoneRect.bottom
+            frogRect.top < zoneRect.bottom &&
+            !zone.isOccupied // Only act if the zone is not already occupied
         ) {
             console.log(`Frog reached home base zone ${index + 1}!`);
-            updateScore();
+            zone.isOccupied = true;
             zone.classList.add('occupied'); // Mark the zone as occupied
+            updateScore();
             resetFrogPosition();
         }
     })
+}
+
+homeBaseZones.forEach((zone) => {
+    zone.isOccupied = false; // Initally, no zones are occupied
+});
+
+function checkWinCondition() {
+    const allZonesOccupied = Array.from(homeBaseZones).every(zone => zone.isOccupied);
+
+    if (allZonesOccupied) {
+        console.log('Game won! All home base zones are occupied');
+        cancelAnimationFrame(gameLoop)
+    }
 }
 
 // The game loop
@@ -209,6 +223,7 @@ function gameLoop() {
     checkLogCollisions(); // Check if the frog is on a log
     checkCollisions(); // Check for collisions with cars
     checkHomeBase();
+    checkWinCondition();
     requestAnimationFrame(gameLoop);
 }
 
